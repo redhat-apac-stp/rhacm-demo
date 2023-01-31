@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policy-access-remove-self-provisioner-${cluster}
+  name: remove-self-provisioner
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
     policy.open-cluster-management.io/categories: AC Access Control
@@ -41,25 +41,25 @@ spec:
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-access-remove-self-provisioner-${cluster}
+  name: binding-access-remove-self-provisioner
 placementRef:
-  name: placement-access-remove-self-provisioner-${cluster}
+  name: placement-access-remove-self-provisioner
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: policy-access-remove-self-provisioner-${cluster}
+- name: remove-self-provisioner
   kind: Policy
   apiGroup: policy.open-cluster-management.io
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
-  name: placement-access-remove-self-provisioner-${cluster}
+  name: placement-access-remove-self-provisioner
 spec:
   clusterConditions:
   - status: "True"
     type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - {key: name, operator: In, values: ["${cluster}"]}
+      - {key: "cluster.open-cluster-management.io/clusterset", operator: In, values: ["dev"]}
 
