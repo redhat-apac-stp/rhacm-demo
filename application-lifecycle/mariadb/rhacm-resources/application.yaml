@@ -11,7 +11,7 @@ metadata:
   namespace: mariadb
 spec:
   type: Git
-  pathname: https://github.com/michaelkotelnikov/rhacm-workshop.git
+  pathname: https://github.com/redhat-apac-stp/rhacm-demo.git
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
@@ -34,7 +34,7 @@ metadata:
   labels:
     app: mariadb-app
   annotations:
-    apps.open-cluster-management.io/github-path: 04.Application-Lifecycle/demo-application/mariadb-resources
+    apps.open-cluster-management.io/github-path: application-lifecycle/mariadb/mariadb-resources
 spec:
   channel: mariadb/mariadb-app
   placement:
