@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policy-compliance-operator-install-${cluster}
+  name: compliance-operator-install
   annotations:
     policy.open-cluster-management.io/standards: NIST SP 800-53
     policy.open-cluster-management.io/categories: CA Security Assessment and Authorization
@@ -69,25 +69,24 @@ spec:
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-compliance-operator-install-${cluster}
+  name: binding-compliance-operator-install
 placementRef:
-  name: placement-compliance-operator-install-${cluster}
+  name: placement-compliance-operator-install
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: policy-compliance-operator-install-${cluster}
+- name: policy-compliance-operator-install
   kind: Policy
   apiGroup: policy.open-cluster-management.io
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
-  name: placement-compliance-operator-install-${cluster}
+  name: placement-compliance-operator-install
 spec:
   clusterConditions:
   - status: "True"
     type: ManagedClusterConditionAvailable
   clusterSelector:
     matchExpressions:
-      - {key: name, operator: In, values: ["${cluster}"]}
-
+      - {key: environment, operator: In, values: ["dev"]}
