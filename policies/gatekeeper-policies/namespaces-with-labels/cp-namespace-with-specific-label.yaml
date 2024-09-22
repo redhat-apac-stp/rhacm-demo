@@ -1,0 +1,81 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-required-labels-ns-2
+  namespace: retail-banking-broker
+  annotations:
+    policy.open-cluster-management.io/standards: Enterprise
+    policy.open-cluster-management.io/categories: best-practices
+    policy.open-cluster-management.io/controls: multi-tenancy
+spec:
+  remediationAction: enforce 
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: cp-required-namespace-label
+        spec:
+          #remediationAction: enforce # the policy-template spec.remediationAction is overridden by the preceding parameter value for spec.remediationAction.
+          severity: low
+          namespaceSelector:
+            include: ["default"]
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: templates.gatekeeper.sh/v1beta1
+                kind: ConstraintTemplate
+                metadata:
+                  name: k8srequiredlabels
+                  annotations:
+                    policy.open-cluster-management.io/severity: low 
+                spec:
+                  crd:
+                    spec:
+                      names:
+                        kind: K8sRequiredLabels
+                      validation:
+                        openAPIV3Schema:
+                          properties:
+                            labels:
+                              type: array
+                              items: string
+                  targets:
+                    - target: admission.k8s.gatekeeper.sh
+                      rego: |
+                        package k8srequiredlabels
+                        violation[{"msg": msg, "details": {"missing_labels": missing}}] {
+                          provided := {label | input.review.object.metadata.labels[label]}
+                          required := {label | label := input.parameters.labels[_]}
+                          missing := required - provided
+                          count(missing) > 0
+                          msg := sprintf("you must provide labels: %v", [missing])
+                        }
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: cp-required-namespace-label-instance
+        spec:
+          #remediationAction: enforce # the policy-template spec.remediationAction is overridden by the preceding parameter value for spec.remediationAction.
+          severity: low
+          namespaceSelector:
+            include: ["default"]
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: constraints.gatekeeper.sh/v1beta1
+                kind: K8sRequiredLabels
+                metadata:
+                  name: namespace-must-have-label
+                  annotations:
+                    policy.open-cluster-management.io/severity: low 
+                spec:
+                  enforcementAction: warn #dryrun, warn, deny
+                  match:
+                    kinds:
+                      - apiGroups: [""]
+                        kinds: ["Namespace"]
+                  parameters:
+                    labels: ["cost-center","business-unit"]

@@ -1,0 +1,11 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicySet
+metadata:
+  name: policyset-all-mandatory-policies
+  namespace: retail-banking-broker
+spec:
+  description: "all mandatory policies"
+  policies:
+  - policy-install-gatekeeper
+  - policy-required-labels-ns-1
+  - policy-replica-limits
