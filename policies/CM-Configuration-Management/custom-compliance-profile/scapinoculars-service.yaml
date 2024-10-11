@@ -1,0 +1,21 @@
+# scapinoculars-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: scapinoculars
+  name: scapinoculars
+  namespace: openshift-compliance
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 2112
+    protocol: TCP
+    targetPort: 2112
+  selector:
+    app: scapinoculars
+  sessionAffinity: None
+  type: ClusterIP

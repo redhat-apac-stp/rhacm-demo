@@ -1,0 +1,93 @@
+apiVersion: "v1"
+kind: Pod
+metadata:
+  name: pv-extract-worker
+spec:
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: pv-extract-pod
+      image: registry.access.redhat.com/ubi9/ubi
+      command: ["sleep", "3000"]
+      volumeMounts:
+      - mountPath: "/opt/go/resources/reports/mybank-custom-profile-api-checks-pod.xml.bzip2"
+        subPath: "0/mybank-custom-profile-api-checks-pod.xml.bzip2"
+        name: workers-scan-vol
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: [ALL]
+  volumes:
+    - name: workers-scan-vol
+      persistentVolumeClaim:
+        claimName: mybank-custom-profile
+
+
+sh-5.1$ id
+uid=1000710000(1000710000) gid=0(root) groups=0(root),1000710000
+
+sh-5.1$ ls -lrth opt/go/resources/reports/mybank-custom-profile-api-checks-pod.xml.bzip2 
+-rw-rw-r--. 1 1000710000 1000710000 246K Oct  2 09:42 opt/go/resources/reports/mybank-custom-profile-api-checks-pod.xml.bzip2
+
+
+
+
+# from the documentation
+
+apiVersion: "v1"
+kind: Pod
+metadata:
+  name: pv-extract
+spec:
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: pv-extract-pod
+      image: registry.access.redhat.com/ubi9/ubi
+      command: ["sleep", "3000"]
+      volumeMounts:
+      - mountPath: "/workers-scan-results"
+        name: workers-scan-vol
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: [ALL]
+  volumes:
+    - name: workers-scan-vol
+      persistentVolumeClaim:
+        claimName: mybank-custom-profile
+
+
+
+
+
+# ---
+
+# apiVersion: "v1"
+# kind: Pod
+# metadata:
+#   name: pv-extract-master
+# spec:
+#   securityContext:
+#     runAsNonRoot: true
+#     seccompProfile:
+#       type: RuntimeDefault
+#   containers:
+#     - name: pv-extract-pod
+#       image: registry.access.redhat.com/ubi9/ubi
+#       command: ["sleep", "3000"]
+#       volumeMounts:
+#       - mountPath: "/master-scan-results"
+#         name: master-scan-vol
+#       securityContext:
+#         allowPrivilegeEscalation: false
+#         capabilities:
+#           drop: [ALL]
+#   volumes:
+#     - name: master-scan-vol
+#       persistentVolumeClaim:
+#         claimName: mybank-custom-profile-master

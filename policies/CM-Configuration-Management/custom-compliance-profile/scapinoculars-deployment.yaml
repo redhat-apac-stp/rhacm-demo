@@ -1,0 +1,41 @@
+# scapinoculars-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: scapinoculars
+  name: scapinoculars
+  namespace: openshift-compliance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scapinoculars
+  template:
+    metadata:
+      labels:
+        app: scapinoculars
+        deployment: scapinoculars
+    spec:
+      serviceAccount: sa-privileged
+      serviceAccountName: sa-privileged
+      volumes:
+      - name: mybank-custom-profile-vol
+        persistentVolumeClaim:
+          claimName: mybank-custom-profile
+      containers:
+      - image: ghcr.io/jritter/scapinoculars:latest
+        imagePullPolicy: Always
+        name: scapinoculars
+        volumeMounts:
+        - mountPath: "/opt/go/resources/reports/mybank-custom-profile-api-checks-pod.xml.bzip2"
+          subPath: "0/mybank-custom-profile-api-checks-pod.xml.bzip2"
+          name: mybank-custom-profile-vol
+        ports:
+        - containerPort: 2112
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        securityContext:
+          runAsUser: 0

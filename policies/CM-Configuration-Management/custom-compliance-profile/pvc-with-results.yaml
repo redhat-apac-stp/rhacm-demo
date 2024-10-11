@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    pv.kubernetes.io/bind-completed: "yes"
+    pv.kubernetes.io/bound-by-controller: "yes"
+    volume.beta.kubernetes.io/storage-provisioner: ebs.csi.aws.com
+    volume.kubernetes.io/selected-node: ip-10-0-40-163.us-east-2.compute.internal
+    volume.kubernetes.io/storage-provisioner: ebs.csi.aws.com
+  creationTimestamp: "2024-10-02T09:41:56Z"
+  finalizers:
+  - kubernetes.io/pvc-protection
+  labels:
+    compliance.openshift.io/scan-name: mybank-custom-profile
+  name: mybank-custom-profile
+  namespace: openshift-compliance
+  resourceVersion: "90830"
+  uid: fa8a876a-9eb7-40e0-b46d-4178bca350b6
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: gp3-csi
+  volumeMode: Filesystem
+  volumeName: pvc-fa8a876a-9eb7-40e0-b46d-4178bca350b6
+status:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  phase: Bound

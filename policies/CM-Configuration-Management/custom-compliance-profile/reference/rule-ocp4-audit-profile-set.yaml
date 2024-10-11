@@ -1,0 +1,69 @@
+apiVersion: compliance.openshift.io/v1alpha1
+checkType: Platform
+description: |-
+  OpenShift can audit the details of requests made to the API server through the standard Kubernetes audit capabilities.
+
+  In OpenShift, auditing of the API Server is on by default. Audit provides a security-relevant chronological set of records documenting the sequence of activities that have affected system by individual users, administrators, or other components of the system. Audit works at the API server level, logging all requests coming to the server. Each audit log contains two entries:
+
+  The request line containing:
+
+  * A Unique ID allowing to match the response line (see #2)
+  * The source IP of the request
+  * The HTTP method being invoked
+  * The original user invoking the operation
+  * The impersonated user for the operation (self meaning himself)
+  * The impersonated group for the operation (lookup meaning user's group)
+  * The namespace of the request or none
+  * The URI as requested
+
+  The response line containing:
+
+  * The aforementioned unique ID
+  * The response code
+
+  For more information on how to configure the audit profile, please visit the documentation ( https://docs.openshift.com/container-platform/latest/security/audit-log-policy-config.html )
+id: xccdf_org.ssgproject.content_rule_audit_profile_set
+instructions: |-
+  Run the following command to retrieve the current audit profile:
+  $ oc get apiservers cluster -ojsonpath='{.spec.audit.profile}'
+  Make sure the profile returned matches the one that should be used.
+  Is it the case that The proper audit profile is not set?
+kind: Rule
+metadata:
+  annotations:
+    compliance.openshift.io/image-digest: pb-ocp4s864m
+    compliance.openshift.io/profiles: ocp4-stig-v2r1,ocp4-high,ocp4-nerc-cip,ocp4-stig,ocp4-high-rev-4,ocp4-cis-1-4,ocp4-moderate-rev-4,ocp4-cis-1-5,ocp4-cis,ocp4-pci-dss-4-0,ocp4-stig-v1r1,ocp4-pci-dss,ocp4-pci-dss-3-2,ocp4-moderate
+    compliance.openshift.io/rule: audit-profile-set
+    control.compliance.openshift.io/CIS-OCP: 3.2.2
+    control.compliance.openshift.io/NERC-CIP: CIP-003-8 R4;CIP-003-8 R4.1;CIP-003-8
+      R4.2;CIP-003-8 R5.2;CIP-003-8 R6;CIP-004-6 R2.2.2;CIP-004-6 R2.2.3;CIP-004-6
+      R3.3;CIP-007-3 R.1.3;CIP-007-3 R5;CIP-007-3 R5.1.1;CIP-007-3 R5.2;CIP-007-3
+      R5.3.1;CIP-007-3 R5.3.2;CIP-007-3 R5.3.3;CIP-007-3 R6.5
+    control.compliance.openshift.io/NIST-800-53: AU-2;AU-3;AU-3(1);AU-6;AU-6(1);AU-7;AU-7(1);AU-8;AU-8(1);AU-9;AU-12;AU-12(1);AU-12(3);CM-5(1);SI-11;SI-12;SI-4(20);SI-4(23)
+    control.compliance.openshift.io/PCI-DSS: Req-2.2;Req-12.5.5
+    control.compliance.openshift.io/PCI-DSS-4-0: 2.2.1;2.2;10.2.2;10.2
+    control.compliance.openshift.io/STIG: SRG-APP-000089-CTR-000150;SRG-APP-000090-CTR-000155;SRG-APP-000101-CTR-000205;CNTR-OS-000150
+    policies.open-cluster-management.io/controls: CIP-003-8 R4,CIP-003-8 R4.1,CIP-003-8
+      R4.2,CIP-003-8 R5.2,CIP-003-8 R6,CIP-004-6 R2.2.2,CIP-004-6 R2.2.3,CIP-004-6
+      R3.3,CIP-007-3 R.1.3,CIP-007-3 R5,CIP-007-3 R5.1.1,CIP-007-3 R5.2,CIP-007-3
+      R5.3.1,CIP-007-3 R5.3.2,CIP-007-3 R5.3.3,CIP-007-3 R6.5,AU-2,AU-3,AU-3(1),AU-6,AU-6(1),AU-7,AU-7(1),AU-8,AU-8(1),AU-9,AU-12,AU-12(1),AU-12(3),CM-5(1),SI-11,SI-12,SI-4(20),SI-4(23),Req-2.2,Req-12.5.5,SRG-APP-000089-CTR-000150,SRG-APP-000090-CTR-000155,SRG-APP-000101-CTR-000205,3.2.2,2.2.1,2.2,10.2.2,10.2,CNTR-OS-000150
+    policies.open-cluster-management.io/standards: NERC-CIP,NIST-800-53,PCI-DSS,STIG,CIS-OCP,PCI-DSS-4-0
+  creationTimestamp: "2024-09-30T04:24:43Z"
+  generation: 1
+  labels:
+    compliance.openshift.io/profile-bundle: ocp4
+  name: ocp4-audit-profile-set
+  namespace: openshift-compliance
+  ownerReferences:
+  - apiVersion: compliance.openshift.io/v1alpha1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ProfileBundle
+    name: ocp4
+    uid: 55f840b8-b465-448b-ade2-113c3aa6ef7e
+  resourceVersion: "98662"
+  uid: d0fe5f69-cdc9-471b-988b-17ceac6cd484
+rationale: Logging is an important detective control for all systems, to detect potential
+  unauthorised access.
+severity: medium
+title: Ensure that the cluster's audit profile is properly set

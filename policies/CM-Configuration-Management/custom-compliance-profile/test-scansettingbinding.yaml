@@ -1,0 +1,15 @@
+
+# test-scansettingbinding.yaml
+apiVersion: compliance.openshift.io/v1alpha1
+kind: ScanSettingBinding
+metadata:
+  name: scan-ocp4-cis
+  namespace: openshift-compliance
+profiles:
+  - apiGroup: compliance.openshift.io/v1alpha1
+    kind: Profile
+    name: ocp4-cis
+settingsRef:
+  apiGroup: compliance.openshift.io/v1alpha1
+  kind: ScanSetting
+  name: scan-tailored-cis

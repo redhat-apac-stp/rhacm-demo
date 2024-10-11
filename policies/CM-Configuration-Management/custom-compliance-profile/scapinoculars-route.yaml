@@ -1,0 +1,19 @@
+# scapinoculars-route.yaml
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: scapinoculars
+  namespace: openshift-compliance
+  labels:
+    app: scapinoculars
+spec:
+  to:
+    kind: Service
+    name: scapinoculars
+    weight: 100
+  port:
+    targetPort: 2112
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None

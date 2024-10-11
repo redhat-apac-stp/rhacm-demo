@@ -1,0 +1,26 @@
+apiVersion: compliance.openshift.io/v1alpha1
+kind: ScanSettingBinding
+metadata:
+  # annotations:
+  #   owner: stackrox
+  # creationTimestamp: "2024-09-30T06:12:01Z"
+  # generation: 1
+  # labels:
+  #   app.kubernetes.io/created-by: sensor
+  #   app.kubernetes.io/managed-by: sensor
+  #   app.kubernetes.io/name: stackrox
+  name: scan-ocp4-cis
+  namespace: openshift-compliance
+  # resourceVersion: "65903"
+  # uid: 573bf282-bee4-4cfe-878d-5b0b459e3b2e
+profiles:
+  - apiGroup: compliance.openshift.io/v1alpha1
+    kind: Profile
+    name: ocp4-cis
+  # - apiGroup: compliance.openshift.io/v1alpha1
+  #   kind: TailoredProfile
+  #   name: mybank-custom-profile
+settingsRef:
+  apiGroup: compliance.openshift.io/v1alpha1
+  kind: ScanSetting
+  name: scan-tailored-cis

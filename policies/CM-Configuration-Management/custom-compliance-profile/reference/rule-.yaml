@@ -1,0 +1,55 @@
+apiVersion: compliance.openshift.io/v1alpha1
+checkType: Platform
+description: |-
+  The kubeadmin user is meant to be a temporary user used for bootstrapping purposes. It is preferable to assign system administrators whose users are backed by an Identity Provider.
+
+  Make sure to remove the user as described in the documentation ( https://docs.openshift.com/container-platform/latest/authentication/remove-kubeadmin.html )
+id: xccdf_org.ssgproject.content_rule_kubeadmin_removed
+instructions: |-
+  To verify that the kubeadmin secret has been deleted, make sure
+  that oc get secrets kubeadmin -n kube-system
+  returns a NotFound error.
+  Is it the case that the kubeadmin secret has not been deleted?
+kind: Rule
+metadata:
+  annotations:
+    compliance.openshift.io/image-digest: pb-ocp4s864m
+    compliance.openshift.io/profiles: ocp4-moderate,ocp4-pci-dss-4-0,ocp4-stig-v2r1,ocp4-stig,ocp4-cis-1-4,ocp4-cis,ocp4-nerc-cip,ocp4-pci-dss-3-2,ocp4-high-rev-4,ocp4-pci-dss,ocp4-high,ocp4-cis-1-5,ocp4-moderate-rev-4,ocp4-stig-v1r1
+    compliance.openshift.io/rule: kubeadmin-removed
+    control.compliance.openshift.io/CIS-OCP: 3.1.1;5.1.1
+    control.compliance.openshift.io/NERC-CIP: CIP-004-6 R2.2.2;CIP-004-6 R2.2.3;CIP-007-3
+      R.1.3;CIP-007-3 R2;CIP-007-3 R5;CIP-007-3 R5.1.1;CIP-007-3 R5.1.3;CIP-007-3
+      R5.2.1;CIP-007-3 R5.2.3;CIP-007-3 R6.1;CIP-007-3 R6.2;CIP-007-3 R6.3;CIP-007-3
+      R6.4
+    control.compliance.openshift.io/NIST-800-53: AC-2(2);AC-2(7);AC-2(9);AC-2(10);AC-12(1);IA-2(5);MA-4;SC-12(1)
+    control.compliance.openshift.io/PCI-DSS: Req-2.1
+    control.compliance.openshift.io/PCI-DSS-4-0: 2.2.1;2.2.2;2.2;8.2.2;8.2;8.3
+    control.compliance.openshift.io/STIG: SRG-APP-000023-CTR-000055;CNTR-OS-000030;CNTR-OS-000040;CNTR-OS-000440
+    policies.open-cluster-management.io/controls: CIP-004-6 R2.2.2,CIP-004-6 R2.2.3,CIP-007-3
+      R.1.3,CIP-007-3 R2,CIP-007-3 R5,CIP-007-3 R5.1.1,CIP-007-3 R5.1.3,CIP-007-3
+      R5.2.1,CIP-007-3 R5.2.3,CIP-007-3 R6.1,CIP-007-3 R6.2,CIP-007-3 R6.3,CIP-007-3
+      R6.4,AC-2(2),AC-2(7),AC-2(9),AC-2(10),AC-12(1),IA-2(5),MA-4,SC-12(1),Req-2.1,SRG-APP-000023-CTR-000055,3.1.1,5.1.1,2.2.1,2.2.2,2.2,8.2.2,8.2,8.3,CNTR-OS-000030,CNTR-OS-000040,CNTR-OS-000440
+    policies.open-cluster-management.io/standards: NERC-CIP,NIST-800-53,PCI-DSS,STIG,CIS-OCP,PCI-DSS-4-0
+  creationTimestamp: "2024-09-30T04:24:38Z"
+  generation: 1
+  labels:
+    compliance.openshift.io/profile-bundle: ocp4
+  name: ocp4-kubeadmin-removed
+  namespace: openshift-compliance
+  ownerReferences:
+  - apiVersion: compliance.openshift.io/v1alpha1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ProfileBundle
+    name: ocp4
+    uid: 55f840b8-b465-448b-ade2-113c3aa6ef7e
+  resourceVersion: "98240"
+  uid: f1495d5d-865b-41eb-bd42-5e4c60b655c2
+rationale: |-
+  The kubeadmin user has an auto-generated password and a self-signed certificate, and has effectively
+
+  cluster-admin
+
+  permissions; therefore, it's considered a security liability.
+severity: medium
+title: Ensure that the kubeadmin secret has been removed

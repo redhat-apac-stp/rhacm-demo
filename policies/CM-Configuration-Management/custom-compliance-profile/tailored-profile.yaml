@@ -1,0 +1,51 @@
+# tailored-profile.yaml
+apiVersion: compliance.openshift.io/v1alpha1
+kind: TailoredProfile
+metadata:
+  name: mybank-custom-profile
+spec:
+  extends: ocp4-cis
+  description: This is myBank custom compliance profile 
+  title: mybank custom profile
+  manualRules:
+    - name: ocp4-audit-profile-set
+      rationale: The configuration can be set and evaluated by the platform team outside the compliance operator. 
+    - name: ocp4-configure-network-policies-namespaces
+      rationale: The configuration can be set and evaluated by the platform team outside the compliance operator. 
+    - name: ocp4-scc-limit-container-allowed-capabilities
+      rationale: The configuration can be set and evaluated by the platform team outside the compliance operator. 
+    - name: ocp4-kubeadmin-removed
+      rationale: The configuration can be set and evaluated by the platform team outside the compliance operator. 
+    - name: ocp4-rbac-wildcard-use
+      rationale: The configuration can be set and evaluated by the platform team outside the compliance operator. 
+    - name: ocp4-ocp-allowed-registries
+      rationale: The configuration can be set and evaluated by the platform team outside the compliance operator. 
+    - name: ocp4-audit-log-forwarding-enabled
+      rationale: The configuration can be set and evaluated by the platform team outside the compliance operator. 
+    - name: ocp4-audit-log-forwarding-uses-tls
+      rationale: The configuration can be set and evaluated by the platform team outside the compliance operator. 
+    - name: ocp4-audit-log-forwarding-webhook
+      rationale: The configuration can be set and evaluated by the platform team outside the compliance operator. 
+    - name: ocp4-api-server-encryption-provider-cipher
+      rationale: The configuration can be set and evaluated by the platform team outside the compliance operator. 
+      
+
+
+
+# 99 rules are there in the `ocp4-cis` profile
+# ACS show __ controls for the profile `ocp4-cis`
+# scaponu - 87 rules with 92%
+
+# ACS show 94 controls for the tailored profile `mybank-custom-profile`
+
+
+# with no rules added
+# scapn 92 rules and 86.1% score
+
+# ACS show 94 controls for the tailored profile `mybank-custom-profile`
+# 90% score
+
+
+
+# ACS scan of ocp4-cis
+# 99 controls with 90% score

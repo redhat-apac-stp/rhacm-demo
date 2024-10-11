@@ -1,0 +1,63 @@
+apiVersion: compliance.openshift.io/v1alpha1
+kind: ComplianceScan
+metadata:
+  annotations:
+    compliance.openshift.io/check-count: "94"
+  creationTimestamp: "2024-09-30T07:52:31Z"
+  finalizers:
+  - scan.finalizers.compliance.openshift.io
+  generation: 1
+  labels:
+    compliance.openshift.io/profile-guid: f59ae8c7-b190-5945-9195-a90a52355e33
+    compliance.openshift.io/suite: scan-tailored-cis
+  name: mybank-custom-profile-worker
+  namespace: openshift-compliance
+  ownerReferences:
+  - apiVersion: compliance.openshift.io/v1alpha1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ComplianceSuite
+    name: scan-tailored-cis
+    uid: ca8a27e0-ee94-4627-a874-b64208ad1001
+  resourceVersion: "88447"
+  uid: fb8cf974-b57b-493b-8132-628992f4534f
+spec:
+  content: ssg-ocp4-ds.xml
+  contentImage: registry.redhat.io/compliance/openshift-compliance-content-rhel8@sha256:079ae32f6705235f47ad2084496d80509e3dfe76b104bd3e9499af87af114116
+  maxRetryOnTimeout: 3
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
+  profile: xccdf_compliance.openshift.io_profile_mybank-custom-profile
+  rawResultStorage:
+    pvAccessModes:
+    - ReadWriteOnce
+    rotation: 3
+    size: 1Gi
+  scanTolerations:
+  - operator: Exists
+  scanType: Node
+  showNotApplicable: false
+  strictNodeScan: false
+  tailoringConfigMap:
+    name: mybank-custom-profile-tp
+  timeout: 30m0s
+status:
+  conditions:
+  - lastTransitionTime: "2024-09-30T07:53:41Z"
+    message: Compliance scan run is done running the scans
+    reason: NotRunning
+    status: "False"
+    type: Processing
+  - lastTransitionTime: "2024-09-30T07:53:41Z"
+    message: Compliance scan run is done and has results
+    reason: Done
+    status: "True"
+    type: Ready
+  endTimestamp: "2024-09-30T07:53:41Z"
+  phase: DONE
+  remainingRetries: 3
+  result: NON-COMPLIANT
+  resultsStorage:
+    name: mybank-custom-profile-worker
+    namespace: openshift-compliance
+  startTimestamp: "2024-09-30T07:52:31Z"

@@ -1,0 +1,22 @@
+# tailored-scansetting.yaml
+apiVersion: compliance.openshift.io/v1alpha1
+kind: ScanSetting
+maxRetryOnTimeout: 3
+metadata:
+  name: scan-tailored-cis
+  namespace: openshift-compliance
+rawResultStorage:
+  pvAccessModes:
+  - ReadWriteOnce
+  rotation: 3
+  size: 1Gi
+roles:
+- master
+- worker
+scanTolerations:
+- operator: Exists
+schedule: 0 0 * * *
+showNotApplicable: false
+strictNodeScan: false
+suspend: false
+timeout: 30m0s

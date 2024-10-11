@@ -1,0 +1,133 @@
+apiVersion: compliance.openshift.io/v1alpha1
+description: This profile defines a baseline that aligns to the Center for Internet
+  Security® Red Hat OpenShift Container Platform 4 Benchmark™, V1.5. This profile
+  includes Center for Internet Security® Red Hat OpenShift Container Platform 4 CIS
+  Benchmarks™ content. Note that this part of the profile is meant to run on the Operating
+  System that Red Hat OpenShift Container Platform 4 runs on top of. This profile
+  is applicable to OpenShift versions 4.12 and greater.
+id: xccdf_org.ssgproject.content_profile_cis-node
+kind: Profile
+metadata:
+  annotations:
+    compliance.openshift.io/image-digest: pb-ocp4s864m
+    compliance.openshift.io/product: redhat_openshift_container_platform_node_4
+    compliance.openshift.io/product-type: Node
+  creationTimestamp: "2024-09-30T04:24:29Z"
+  generation: 1
+  labels:
+    compliance.openshift.io/profile-bundle: ocp4
+    compliance.openshift.io/profile-guid: fea955f1-9f13-56fd-aacf-868b95b7283f
+  name: ocp4-cis-node
+  namespace: openshift-compliance
+  ownerReferences:
+  - apiVersion: compliance.openshift.io/v1alpha1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ProfileBundle
+    name: ocp4
+    uid: 55f840b8-b465-448b-ade2-113c3aa6ef7e
+  resourceVersion: "97688"
+  uid: 7661cd13-e6f4-4760-ba8a-8267ee75a220
+rules:
+- ocp4-etcd-unique-ca
+- ocp4-file-groupowner-cni-conf
+- ocp4-file-groupowner-controller-manager-kubeconfig
+- ocp4-file-groupowner-etcd-data-dir
+- ocp4-file-groupowner-etcd-data-files
+- ocp4-file-groupowner-etcd-member
+- ocp4-file-groupowner-etcd-pki-cert-files
+- ocp4-file-groupowner-ip-allocations
+- ocp4-file-groupowner-kube-apiserver
+- ocp4-file-groupowner-kube-controller-manager
+- ocp4-file-groupowner-kube-scheduler
+- ocp4-file-groupowner-kubelet-conf
+- ocp4-file-groupowner-master-admin-kubeconfigs
+- ocp4-file-groupowner-multus-conf
+- ocp4-file-groupowner-openshift-pki-cert-files
+- ocp4-file-groupowner-openshift-pki-key-files
+- ocp4-file-groupowner-openshift-sdn-cniserver-config
+- ocp4-file-groupowner-ovn-cni-server-sock
+- ocp4-file-groupowner-ovn-db-files
+- ocp4-file-groupowner-ovs-conf-db
+- ocp4-file-groupowner-ovs-conf-db-lock
+- ocp4-file-groupowner-ovs-pid
+- ocp4-file-groupowner-ovs-sys-id-conf
+- ocp4-file-groupowner-ovs-vswitchd-pid
+- ocp4-file-groupowner-ovsdb-server-pid
+- ocp4-file-groupowner-scheduler-kubeconfig
+- ocp4-file-groupowner-worker-ca
+- ocp4-file-groupowner-worker-kubeconfig
+- ocp4-file-groupowner-worker-service
+- ocp4-file-owner-cni-conf
+- ocp4-file-owner-controller-manager-kubeconfig
+- ocp4-file-owner-etcd-data-dir
+- ocp4-file-owner-etcd-data-files
+- ocp4-file-owner-etcd-member
+- ocp4-file-owner-etcd-pki-cert-files
+- ocp4-file-owner-ip-allocations
+- ocp4-file-owner-kube-apiserver
+- ocp4-file-owner-kube-controller-manager
+- ocp4-file-owner-kube-scheduler
+- ocp4-file-owner-kubelet
+- ocp4-file-owner-kubelet-conf
+- ocp4-file-owner-master-admin-kubeconfigs
+- ocp4-file-owner-multus-conf
+- ocp4-file-owner-openshift-pki-cert-files
+- ocp4-file-owner-openshift-pki-key-files
+- ocp4-file-owner-openshift-sdn-cniserver-config
+- ocp4-file-owner-ovn-cni-server-sock
+- ocp4-file-owner-ovn-db-files
+- ocp4-file-owner-ovs-conf-db
+- ocp4-file-owner-ovs-conf-db-lock
+- ocp4-file-owner-ovs-pid
+- ocp4-file-owner-ovs-sys-id-conf
+- ocp4-file-owner-ovs-vswitchd-pid
+- ocp4-file-owner-ovsdb-server-pid
+- ocp4-file-owner-scheduler-kubeconfig
+- ocp4-file-owner-worker-ca
+- ocp4-file-owner-worker-kubeconfig
+- ocp4-file-owner-worker-service
+- ocp4-file-permissions-cni-conf
+- ocp4-file-permissions-controller-manager-kubeconfig
+- ocp4-file-permissions-etcd-data-dir
+- ocp4-file-permissions-etcd-data-files
+- ocp4-file-permissions-etcd-member
+- ocp4-file-permissions-etcd-pki-cert-files
+- ocp4-file-permissions-ip-allocations
+- ocp4-file-permissions-kube-apiserver
+- ocp4-file-permissions-kube-controller-manager
+- ocp4-file-permissions-kubelet-conf
+- ocp4-file-permissions-master-admin-kubeconfigs
+- ocp4-file-permissions-multus-conf
+- ocp4-file-permissions-openshift-pki-cert-files
+- ocp4-file-permissions-openshift-pki-key-files
+- ocp4-file-permissions-ovn-cni-server-sock
+- ocp4-file-permissions-ovn-db-files
+- ocp4-file-permissions-ovs-conf-db
+- ocp4-file-permissions-ovs-conf-db-lock
+- ocp4-file-permissions-ovs-pid
+- ocp4-file-permissions-ovs-sys-id-conf
+- ocp4-file-permissions-ovs-vswitchd-pid
+- ocp4-file-permissions-ovsdb-server-pid
+- ocp4-file-permissions-scheduler
+- ocp4-file-permissions-scheduler-kubeconfig
+- ocp4-file-permissions-worker-ca
+- ocp4-file-permissions-worker-kubeconfig
+- ocp4-file-permissions-worker-service
+- ocp4-file-perms-openshift-sdn-cniserver-config
+- ocp4-kubelet-anonymous-auth
+- ocp4-kubelet-authorization-mode
+- ocp4-kubelet-configure-client-ca
+- ocp4-kubelet-configure-event-creation
+- ocp4-kubelet-configure-tls-cipher-suites
+- ocp4-kubelet-enable-cert-rotation
+- ocp4-kubelet-enable-client-cert-rotation
+- ocp4-kubelet-enable-iptables-util-chains
+- ocp4-kubelet-enable-server-cert-rotation
+- ocp4-kubelet-enable-streaming-connections
+- ocp4-kubelet-eviction-thresholds-set-hard-imagefs-available
+- ocp4-kubelet-eviction-thresholds-set-hard-memory-available
+- ocp4-kubelet-eviction-thresholds-set-hard-nodefs-available
+- ocp4-kubelet-eviction-thresholds-set-hard-nodefs-inodesfree
+title: CIS Red Hat OpenShift Container Platform 4 Benchmark
+version: 1.5.0

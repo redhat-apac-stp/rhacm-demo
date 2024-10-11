@@ -1,0 +1,14 @@
+# tailored-scansettingbinding.yaml
+apiVersion: compliance.openshift.io/v1alpha1
+kind: ScanSettingBinding
+metadata:
+  name: scan-tailored-cis
+  namespace: openshift-compliance
+profiles:
+  - apiGroup: compliance.openshift.io/v1alpha1
+    kind: TailoredProfile
+    name: mybank-custom-profile
+settingsRef:
+  apiGroup: compliance.openshift.io/v1alpha1
+  kind: ScanSetting
+  name: scan-tailored-cis

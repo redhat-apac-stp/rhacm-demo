@@ -1,0 +1,29 @@
+apiVersion: compliance.openshift.io/v1alpha1
+kind: ScanSetting
+maxRetryOnTimeout: 3
+metadata:
+  # annotations:
+  #   owner: stackrox
+  # labels:
+  #   app.kubernetes.io/created-by: sensor
+  #   app.kubernetes.io/managed-by: sensor
+  #   app.kubernetes.io/name: stackrox
+  name: scan-tailored-cis
+  namespace: openshift-compliance
+  # resourceVersion: "65898"
+  # uid: 49a8dea4-66c4-41b7-9e7a-f0127b3f081b
+rawResultStorage:
+  pvAccessModes:
+  - ReadWriteOnce
+  rotation: 3
+  size: 1Gi
+roles:
+- master
+- worker
+scanTolerations:
+- operator: Exists
+schedule: 0 0 * * *
+showNotApplicable: false
+strictNodeScan: false
+suspend: false
+timeout: 30m0s
